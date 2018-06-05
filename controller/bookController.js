@@ -39,6 +39,7 @@ router.post('/', (req,res) => {
 
 router.get('/search',(req,res) => {
     let tagElements = [];
+    if(typeof(req.query.tag) == 'undefined') {tagElements = null;}
     if (typeof(req.query.tag) !== 'string'){
         for(let i in req.query.tag) {
             console.log('object: '+req.query.tag[i]);
