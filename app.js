@@ -15,19 +15,7 @@ const bookController = require('./controller/bookController');
 app.use('/book', bookController);
 
 app.use('/',(req,res)=>{
-    es_client.search({
-        index: 'book',
-        type: 'document',
-        body: {
-            query: {
-                match: {
-                    tags:'Fiction'
-                }
-            }
-        }
-    }).then((resp) => {
-        res.status(200).send(resp);
-    })
+   res.json({'Message': 'Welcome to the book search API!'})
 });
 
 module.exports = app;

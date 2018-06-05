@@ -20,8 +20,8 @@ router.post('/', (req,res) => {
         tags: req.body.tags
     })
     Book.create(book, (err, book) => {
-        if (err) return res.status(500).send("Error adding information to DB");
-        res.status(200).send(book);
+        if (err) return res.status(500).json({'Error':err});
+        res.status(200).json({'response':book});
     });
     es_client.index({
         index:'book',
@@ -42,7 +42,6 @@ router.get('/search',(req,res) => {
     if(typeof(req.query.tag) == 'undefined') {tagElements = null;}
     if (typeof(req.query.tag) !== 'string'){
         for(let i in req.query.tag) {
-            console.log('object: '+req.query.tag[i]);
             tagElements.push({regexp: {tags: '.*'+req.query.tag[i]+'.*'}})
         }
     } else {
@@ -62,9 +61,9 @@ router.get('/search',(req,res) => {
             }
         }
     }).then((resp) => {
-        res.status(200).send(resp);
+        res.status(200).json({'response':resp});
     }, (err) => {
-        res.status(500).send(err)
+        res.status(500).json({'error':err})
     })
 });
 
