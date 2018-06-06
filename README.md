@@ -2,19 +2,28 @@
 ## Table of Content
 
 1. [Introduction](#introduction)
-2. [Live example](#example)
-3. [API Docs](#api_docs)
+2. [Installation](#install)
+3. [Live example](#example)
+4. [API Docs](#api_docs)
 
-## Introduction <a name=introduction></a>
+## Introduction <a name="introduction"></a>
 This is an API developed with NodeJS using Express, it uses MongoDB as the database and also Elasticsearch to perform the queries. For the routes security, it uses JWT.
 
-## Live Example <a name=example></a>
+## Installation <a name="install"></a>
+To install this program:
+  1. Clone this repository
+  2. Run ``` npm install ``` in the root directory
+  3. Change ```example.env``` to ```.env``` and set it with values of your local instance or your cloud service.
+  4. Run ```node server.js```
+  
+
+## Live Example <a name="example"></a>
 There is a Live example for this API deployed in Heroku. In order to use it, you have to make all the requests to the following URI:
 ```
 https://book-search-api.herokuapp.com
 ```
 
-##API Docs <a name=api_docs></a>
+##API Docs <a name="api_docs"></a>
 The API route to any action related to the books, are protected with JWT, so in order to make this requests the user has to authenticate to get the respective token for the actions.
 
 To get this token, send a GET request with Basic Auth to the URI:
