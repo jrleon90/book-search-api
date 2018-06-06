@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./database/db');
@@ -12,10 +13,17 @@ let es_client = new elasticsearch.Client({
 });
 
 const bookController = require('./controller/bookController');
+const loginController = require('./controller/loginController');
+const userController = require('./controller/userController');
+
 app.use('/book', bookController);
+app.use('/login', loginController);
+app.use('/user', userController);
 
 app.use('/',(req,res)=>{
    res.json({'Message': 'Welcome to the book search API!'})
 });
+
+
 
 module.exports = app;

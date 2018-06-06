@@ -1,11 +1,29 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
 const elasticsearch = require('elasticsearch');
+const jwt = require('jsonwebtoken');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+router.use((req, res, next) => {
+    let token = req.headers['x-access-token'];
+
+    if (token){
+        jwt.verify(token, process.env.JWT_ENCRYPTION, (err, decoded) => {
+            if (err) {
+                res.status(401).json({"Message":"Invalid Token"});
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        res.status(401).json({"Message":"Add a token to the header"})
+    }
+});
 
 let Book = require('../models/book');
 
@@ -21,7 +39,7 @@ router.post('/', (req,res) => {
     })
     Book.create(book, (err, book) => {
         if (err) return res.status(500).json({'Error':err});
-        res.status(200).json({'response':book});
+        res.status(200).json({'response':'Book added!'});
     });
     es_client.index({
         index:'book',
@@ -32,9 +50,20 @@ router.post('/', (req,res) => {
             tags: req.body.tags
         }
     },(err, response) => {
-        console.log('Elasticsearch: ' + JSON.stringify(response));
+        if (err) return res.status(500).json({'Error':err});
     });
     
+});
+
+router.get('/', (req,res)=> {
+    es_client.search({
+        index: 'book',
+        type: 'document'
+    }).then((resp) => {
+        res.status(200).json({'Response': resp});
+    },(err) => {
+        res.status(500).json({'Error': err});
+    })
 });
 
 router.get('/search',(req,res) => {
