@@ -23,7 +23,7 @@ There is a Live example for this API deployed in Heroku. In order to use it, you
 https://book-search-api.herokuapp.com
 ```
 
-##API Docs <a name="api_docs"></a>
+## API Docs <a name="api_docs"></a>
 The API route to any action related to the books, are protected with JWT, so in order to make this requests the user has to authenticate to get the respective token for the actions.
 
 To get this token, send a GET request with Basic Auth to the URI:
