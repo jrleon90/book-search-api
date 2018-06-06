@@ -46,7 +46,7 @@ Since the routes are protected, the user needs to send the token in the header o
 
 ![alt text](http://res.cloudinary.com/jrleon90/image/upload/v1528253006/get_book_request.png "Postman example")
 
-The response it would a JSON object with the books inside the Elasticsearch index.
+The response it would be a JSON object with the books inside the Elasticsearch index.
 
 2. **SEARCH A BOOK**
 
@@ -85,7 +85,7 @@ POST https://book-search-api.herokuapp.com/user
   
 With the request, send username and password inside the body in JSON format (see image)
   
- ![alt text](http://res.cloudinary.com/jrleon90/image/upload/v1528254131/create_user_book.png "Postman Example")
+![alt text](http://res.cloudinary.com/jrleon90/image/upload/v1528254131/create_user_book.png "Postman Example")
 
 
 
