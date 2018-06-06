@@ -19,9 +19,11 @@ router.get('/', (req,res) => {
 
     user = User.findOne({username: parts[0]},(err, docs) => {
         if (err) return res.status(401).json({"Message":"Error during authentication"});
-        if (docs != null) { 
+        if (docs !== null) { 
             if (bcrypt.compareSync(parts[1],docs.password)){
+                console.log('sign in');
                 let token = jwt.sign({_id:docs._id, exp: Math.floor(Date.now() / 1000) + (60 * 60),},process.env.JWT_ENCRYPTION);
+                console.log('token created');
                 return res.status(200).json({"token": token});
             }else {
                return res.status(401).json({"Message":"Invalid password"});
