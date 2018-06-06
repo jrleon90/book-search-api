@@ -22,12 +22,12 @@ router.get('/', (req,res) => {
         if (docs != null) { 
             if (bcrypt.compareSync(parts[1],docs.password)){
                 let token = jwt.sign({_id:docs._id, exp: Math.floor(Date.now() / 1000) + (60 * 60),},process.env.JWT_ENCRYPTION);
-                res.status(200).json({"token": token});
+                return res.status(200).json({"token": token});
             }else {
-                res.status(401).json({"Message":"Invalid password"});
+               return res.status(401).json({"Message":"Invalid password"});
             }
         } else {
-            res.status(401).json({"Message":"User not found"});
+           return res.status(401).json({"Message":"User not found"});
         }
     });
     
