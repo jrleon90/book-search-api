@@ -14,14 +14,14 @@ router.use((req, res, next) => {
     if (token){
         jwt.verify(token, process.env.JWT_ENCRYPTION, (err, decoded) => {
             if (err) {
-                res.status(401).json({"Message":"Invalid Token"});
+                return res.status(401).json({"Message":"Invalid Token"});
             } else {
                 req.decoded = decoded;
                 next();
             }
         });
     } else {
-        res.status(401).json({"Message":"Add a token to the header"})
+        return res.status(401).json({"Message":"Add a token to the header"})
     }
 });
 
@@ -39,7 +39,7 @@ router.post('/', (req,res) => {
     })
     Book.create(book, (err, book) => {
         if (err) return res.status(500).json({'Error':err});
-        res.status(200).json({'response':'Book added!'});
+        return tus(200).json({'response':'Book added!'});
     });
     es_client.index({
         index:'book',
@@ -60,9 +60,9 @@ router.get('/', (req,res)=> {
         index: 'book',
         type: 'document'
     }).then((resp) => {
-        res.status(200).json({'Response': resp});
+        return res.status(200).json({'Response': resp});
     },(err) => {
-        res.status(500).json({'Error': err});
+        return res.status(500).json({'Error': err});
     })
 });
 
@@ -90,9 +90,9 @@ router.get('/search',(req,res) => {
             }
         }
     }).then((resp) => {
-        res.status(200).json({'response':resp});
+        return res.status(200).json({'response':resp});
     }, (err) => {
-        res.status(500).json({'error':err})
+        return res.status(500).json({'error':err})
     })
 });
 

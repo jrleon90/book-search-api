@@ -18,7 +18,7 @@ router.get('/', (req,res) => {
    
 
     user = User.findOne({username: parts[0]},(err, docs) => {
-        if (err) res.status(401).json({"Message":"Error during authentication"});
+        if (err) return res.status(401).json({"Message":"Error during authentication"});
         if (docs != null) { 
             if (bcrypt.compareSync(parts[1],docs.password)){
                 let token = jwt.sign({_id:docs._id, exp: Math.floor(Date.now() / 1000) + (60 * 60),},process.env.JWT_ENCRYPTION);
