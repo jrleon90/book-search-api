@@ -12,8 +12,8 @@ let es_client = new elasticsearch.Client({
     host: 'https://paas:02c1862d80bb264a93750c2c1ace49a7@thorin-us-east-1.searchly.com'
 });
 
-const bookController = require('./controller/bookController');
 const loginController = require('./controller/loginController');
+const bookController = require('./controller/bookController');
 const userController = require('./controller/userController');
 
 app.use('/book', bookController);
